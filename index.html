@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astro Premium Orchestrator — Mono Edition</title>
+    <title>Astro Premium Orchestrator — Noir & Gold</title>
     <style>
         @import url('https://googleapis.com');
 
@@ -18,23 +18,23 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #0A0A0A; /* Premium Deep Black */
+            background-color: #0A0A0A; /* Deep Onyx Black */
             color: #FFFFFF; /* Crisp White Text */
-            font-family: 'Playfair Display', serif; /* Sophisticated Serif Typography */
+            font-family: 'Playfair Display', serif; /* Elegant Serif Styling */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Ambient Premium Gray Shadow Mask */
-        .bg-glow-gray {
+        /* Ambient Premium Lighting Grid */
+        .bg-glow-gold {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.04) 0%, rgba(0,0,0,0) 70%);
             z-index: 1;
             pointer-events: none;
         }
@@ -44,12 +44,12 @@
             z-index: 2;
             width: 90%;
             max-width: 440px;
-            background: rgba(20, 20, 20, 0.85); /* Dark Gray Container background */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border opacity */
+            background: rgba(20, 20, 20, 0.85); /* Slate Gray Midground Container */
+            border: 1px solid rgba(212, 175, 55, 0.2); /* Metallic Gold Accent Border */
             border-radius: 16px;
             padding: 45px 35px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.02);
             backdrop-filter: blur(15px);
         }
 
@@ -58,8 +58,8 @@
             font-size: 2.4rem;
             font-weight: 700;
             letter-spacing: 0.5rem;
-            color: #FFFFFF; /* White Core Entity */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #D4AF37; /* Striking Metallic Gold Core Entity */
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
             margin-bottom: 4px;
         }
 
@@ -68,7 +68,7 @@
             font-weight: 400;
             font-style: italic;
             letter-spacing: 0.15rem;
-            color: #707070; /* Muted Slate Gray */
+            color: #8A8A8A; /* Soft Muted Gray */
             text-transform: uppercase;
             margin-bottom: 35px;
         }
@@ -78,7 +78,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.12rem;
-            color: #A0A0A0; /* Medium Gray Label */
+            color: #A0A0A0; /* Medium Slate Gray Label */
             margin-bottom: 12px;
             font-weight: 600;
             text-align: left;
@@ -87,7 +87,7 @@
 
         .segment-control {
             display: flex;
-            background: #141414;
+            background: #141414; /* Deep Charcoal Track */
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 4px;
@@ -98,7 +98,7 @@
             flex: 1;
             background: transparent;
             border: none;
-            color: #707070; /* Gray for inactive state */
+            color: #707070; /* Slate Gray for Inactive State */
             padding: 10px 0;
             font-size: 0.8rem;
             font-family: 'Playfair Display', serif;
@@ -109,15 +109,15 @@
         }
 
         .segment-btn.active {
-            background: #FFFFFF; /* High-contrast white selector */
-            color: #0A0A0A; /* Dark contrast text */
+            background: #FFFFFF; /* High-Contrast Crisp White Selector */
+            color: #0A0A0A;
             font-weight: 600;
         }
 
         /* Console Terminal Output Interface */
         .terminal-box {
             background: #0D0D0D;
-            border: 1px solid rgba(255, 255, 255, 0.08); /* Minimal Frame */
+            border: 1px solid rgba(212, 175, 55, 0.15); /* Gold Accent Matrix Border */
             border-radius: 8px;
             padding: 18px;
             display: flex;
@@ -130,7 +130,7 @@
         .code-string {
             font-family: monospace;
             font-size: 0.85rem;
-            color: #E0E0E0; /* Light Gray Output */
+            color: #E0E0E0; /* Crisp Light Gray Text Output */
             letter-spacing: 0.05rem;
             text-align: left;
             word-break: break-all;
@@ -144,20 +144,21 @@
             font-family: 'Playfair Display', serif;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #FFFFFF; /* Solid White Action Button */
+            color: #D4AF37; /* Metallic Gold Accent Action Button */
             text-transform: uppercase;
             letter-spacing: 0.05rem;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s, transform 0.2s;
         }
 
         .copy-trigger:hover {
-            opacity: 0.6;
+            opacity: 0.8;
+            transform: scale(1.02);
         }
 
         .status-message {
             font-size: 0.75rem;
             height: 16px;
-            color: #606060;
+            color: #606060; /* Dark Charcoal Log text */
             font-weight: 400;
             font-style: italic;
             letter-spacing: 0.05rem;
@@ -165,14 +166,14 @@
         }
 
         .status-message.success {
-            color: #FFFFFF; /* Solid White Success Flag */
+            color: #D4AF37; /* Metallic Gold Success State */
             font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow-gray"></div>
+    <div class="bg-glow-gold"></div>
 
     <div class="app-window">
         <div class="app-logo">Astro</div>
