@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astro Premium Orchestrator</title>
+    <title>Astro Premium Orchestrator — Mono Edition</title>
     <style>
         @import url('https://googleapis.com');
 
@@ -18,35 +18,23 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #030305; /* Deep, premium onyx black */
-            color: #FFFFFF; /* Crisp white essential text */
-            font-family: 'Playfair Display', serif; /* Sophisticated serif styling */
+            background-color: #0A0A0A; /* Premium Deep Black */
+            color: #FFFFFF; /* Crisp White Text */
+            font-family: 'Playfair Display', serif; /* Sophisticated Serif Typography */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Dual Ambient Premium Lighting (Gold & Blue) */
-        .bg-glow-blue {
+        /* Ambient Premium Gray Shadow Mask */
+        .bg-glow-gray {
             position: absolute;
-            top: 35%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(0, 102, 204, 0.12) 0%, rgba(0,0,0,0) 70%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .bg-glow-gold {
-            position: absolute;
-            top: 65%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, rgba(0,0,0,0) 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(0,0,0,0) 70%);
             z-index: 1;
             pointer-events: none;
         }
@@ -56,12 +44,12 @@
             z-index: 2;
             width: 90%;
             max-width: 440px;
-            background: rgba(10, 10, 12, 0.85);
-            border: 1px solid rgba(0, 102, 204, 0.25); /* Striking Blue Accent Border */
+            background: rgba(20, 20, 20, 0.85); /* Dark Gray Container background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border opacity */
             border-radius: 16px;
             padding: 45px 35px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 102, 204, 0.05);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(15px);
         }
 
@@ -70,8 +58,8 @@
             font-size: 2.4rem;
             font-weight: 700;
             letter-spacing: 0.5rem;
-            color: #D4AF37; /* Striking Metallic Gold Accent */
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            color: #FFFFFF; /* White Core Entity */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             margin-bottom: 4px;
         }
 
@@ -80,7 +68,7 @@
             font-weight: 400;
             font-style: italic;
             letter-spacing: 0.15rem;
-            color: #A0A0A5;
+            color: #707070; /* Muted Slate Gray */
             text-transform: uppercase;
             margin-bottom: 35px;
         }
@@ -90,7 +78,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.12rem;
-            color: #D4AF37; /* Gold Accent Label */
+            color: #A0A0A0; /* Medium Gray Label */
             margin-bottom: 12px;
             font-weight: 600;
             text-align: left;
@@ -99,8 +87,8 @@
 
         .segment-control {
             display: flex;
-            background: #0D0E12;
-            border: 1px solid rgba(0, 102, 204, 0.15);
+            background: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 4px;
             margin-bottom: 25px;
@@ -110,27 +98,26 @@
             flex: 1;
             background: transparent;
             border: none;
-            color: #8C909A;
+            color: #707070; /* Gray for inactive state */
             padding: 10px 0;
             font-size: 0.8rem;
             font-family: 'Playfair Display', serif;
             font-weight: 400;
             cursor: pointer;
             border-radius: 6px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.3s ease;
         }
 
         .segment-btn.active {
-            background: linear-gradient(135deg, #0066CC 0%, #004499 100%); /* Striking Blue Interactive Element */
-            color: #FFFFFF;
+            background: #FFFFFF; /* High-contrast white selector */
+            color: #0A0A0A; /* Dark contrast text */
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
         }
 
         /* Console Terminal Output Interface */
         .terminal-box {
-            background: #050608;
-            border: 1px solid rgba(212, 175, 55, 0.15); /* Gold Accent Matrix Border */
+            background: #0D0D0D;
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Minimal Frame */
             border-radius: 8px;
             padding: 18px;
             display: flex;
@@ -143,7 +130,7 @@
         .code-string {
             font-family: monospace;
             font-size: 0.85rem;
-            color: #FFFFFF; /* Crisp White Text */
+            color: #E0E0E0; /* Light Gray Output */
             letter-spacing: 0.05rem;
             text-align: left;
             word-break: break-all;
@@ -157,21 +144,20 @@
             font-family: 'Playfair Display', serif;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #D4AF37; /* Gold Trigger Action */
+            color: #FFFFFF; /* Solid White Action Button */
             text-transform: uppercase;
             letter-spacing: 0.05rem;
-            transition: opacity 0.2s, transform 0.2s;
+            transition: opacity 0.2s;
         }
 
         .copy-trigger:hover {
-            opacity: 0.8;
-            transform: scale(1.02);
+            opacity: 0.6;
         }
 
         .status-message {
             font-size: 0.75rem;
             height: 16px;
-            color: #7E828C;
+            color: #606060;
             font-weight: 400;
             font-style: italic;
             letter-spacing: 0.05rem;
@@ -179,15 +165,14 @@
         }
 
         .status-message.success {
-            color: #0088FF; /* Vibrant Blue Success State */
+            color: #FFFFFF; /* Solid White Success Flag */
             font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow-blue"></div>
-    <div class="bg-glow-gold"></div>
+    <div class="bg-glow-gray"></div>
 
     <div class="app-window">
         <div class="app-logo">Astro</div>
