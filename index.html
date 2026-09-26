@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Web Utility</title>
+    <style>
+        @import url('https://googleapis.com');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ambient Premium Lighting Grid */
+        .bg-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .app-window {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 440px;
+            background: rgba(15, 15, 15, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        .app-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.4rem;
+            color: #D4AF37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            margin-bottom: 6px;
+        }
+
+        .app-subtitle {
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.15rem;
+            color: #8C8C8C;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* Interactive Mode Selector Segment */
+        .selector-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: #D4AF37;
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-align: left;
+            padding-left: 2px;
+        }
+
+        .segment-control {
+            display: flex;
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 3px;
+            margin-bottom: 25px;
+        }
+
+        .segment-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #8C8C8C;
+            padding: 8px 0;
+            font-size: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .segment-btn.active {
+            background: #D4AF37;
+            color: #050505;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Console Terminal Output Interface */
+        .terminal-box {
+            background: #0A0A0A;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            min-height: 52px;
+        }
+
+        .code-string {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #E0E0E0;
+            letter-spacing: 0.05rem;
+            text-align: left;
+            word-break: break-all;
+        }
+
+        .copy-trigger {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            transition: opacity 0.2s;
+        }
+
+        .copy-trigger:hover {
+            opacity: 0.8;
+        }
+
+        .status-message {
+            font-size: 0.7rem;
+            height: 14px;
+            color: #8C8C8C;
+            font-weight: 300;
+            letter-spacing: 0.05rem;
+            transition: color 0.3s ease;
+        }
+
+        .status-message.success {
+            color: #D4AF37;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="app-window">
+        <div class="app-logo">Astro</div>
+        <div class="app-subtitle">Framework Orchestrator</div>
+
+        <div class="selector-label">Choose Deployment Mode</div>
+        <div class="segment-control">
+            <button class="segment-btn active" onclick="switchMode('latest', this)">Standard</button>
+            <button class="segment-btn" onclick="switchMode('ts', this)">TypeScript</button>
+            <button class="segment-btn" onclick="switchMode('minimal', this)">Minimal</button>
+        </div>
+
+        <div class="terminal-box">
+            <span class="code-string" id="commandDisplay">npm create astro@latest</span>
+            <button class="copy-trigger" onclick="copyCommand()">Copy</button>
+        </div>
+
+        <div class="status-message" id="statusLog">Click copy to clipboard</div>
+    </div>
+
+    <script>
+        const commands = {
+            latest: "npm create astro@latest",
+            ts: "npm create astro@latest -- --template typescript",
+            minimal: "npm create astro@latest -- --template minimal"
+        };
+
+        let currentKey = 'latest';
+
+        function switchMode(mode, element) {
+            currentKey = mode;
+            document.getElementById('commandDisplay').innerText = commands[mode];
+            
+            // Manage UI states across the toggle buttons
+            document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Reset status text
+            const statusLog = document.getElementById('statusLog');
+            statusLog.innerText = "Click copy to clipboard";
+            statusLog.classList.remove('success');
+        }
+
+        function copyCommand() {
+            const commandText = commands[currentKey];
+            navigator.clipboard.writeText(commandText).then(() => {
+                const statusLog = document.getElementById('statusLog');
+                statusLog.innerText = "Command copied successfully";
+                statusLog.classList.add('success');
+                
+                setTimeout(() => {
+                    if(statusLog.innerText === "Command copied successfully") {
+                        statusLog.innerText = "Click copy to clipboard";
+                        statusLog.classList.remove('success');
+                    }
+                }, 3000);
+            }).catch(err => {
+                document.getElementById('statusLog').innerText = "Copy failed. Please manually select.";
+            });
+        }
+    </script>
+</body>
+</html>
